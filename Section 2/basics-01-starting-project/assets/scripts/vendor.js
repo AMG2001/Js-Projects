@@ -7,7 +7,7 @@ const divideBtn = document.getElementById("btn-divide");
 const currentResultOutput = document.getElementById("current-result");
 const currentCalculationOutput = document.getElementById("current-calculation");
 
-let lastValue = 0;
+var result = 0;
 
 /*###################################################################################
  *###################################################################################
@@ -28,43 +28,31 @@ divideBtn.addEventListener("click", divNumber);
  */
 
 function addNumber() {
-  let number = Number.parseInt(userInput.value); // Specify base 10
-  if (isNaN(number)) {
-    outputResult("Error: Please enter a valid number.");
-    return;
-  }
-  lastValue += number;
-  outputResult(lastValue, "");
+  let number = getEnteredNumber();
+  let eq = `${result} + ${number}`;
+  result += number;
+  showEquationAndResult(eq, result);
 }
 
 function subNumber() {
-  let number = Number.parseInt(userInput.value); // Specify base 10
-  if (isNaN(number)) {
-    outputResult("Error: Please enter a valid number.");
-    return;
-  }
-  lastValue -= number;
-  outputResult(lastValue, "");
+  let number = getEnteredNumber();
+  let eq = `${result} - ${number}`;
+  result -= number;
+  showEquationAndResult(eq, result);
 }
 
 function mulNumber() {
-  let number = Number.parseInt(userInput.value); // Specify base 10
-  if (isNaN(number)) {
-    outputResult("Error: Please enter a valid number.");
-    return;
-  }
-  lastValue *= number;
-  outputResult(lastValue, "");
+  let number = getEnteredNumber();
+  let eq = `${result} * ${number}`;
+  result *= number;
+  showEquationAndResult(eq, result);
 }
 
 function divNumber() {
-  let number = Number.parseInt(userInput.value); // Specify base 10
-  if (isNaN(number)) {
-    outputResult("Error: Please enter a valid number.");
-    return;
-  }
-  lastValue /= number;
-  outputResult(lastValue, "");
+  let number = getEnteredNumber();
+  let eq = `${result} / ${number}`;
+  result /= number;
+  showEquationAndResult(eq, result);
 }
 
 /*###################################################################################
@@ -73,8 +61,17 @@ function divNumber() {
  *###################################################################################
  *###################################################################################
  */
-function outputResult(result, text = "") {
+
+/**
+ * is used to get the entered value in input field and return it as Number .
+ * @returns Number value .
+ */
+function getEnteredNumber() {
+  return parseInt(userInput.value);
+}
+
+function showEquationAndResult(equation, result) {
   // Allow optional text
-  currentResultOutput.textContent = result;
-  currentCalculationOutput.textContent = text;
+  currentResultOutput.textContent = `${result}`;
+  currentCalculationOutput.textContent = `${equation}`;
 }
